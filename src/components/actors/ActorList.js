@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Container, Grid, CircularProgress, Typography } from "@material-ui/core";
-
-import { connect } from "react-redux";
-import { getActors } from "../../redux/actions/actorActions";
 
 import ActorItem from "./ActorItem";
 
@@ -13,18 +10,14 @@ const styles = (theme) => ({
   ...theme.styles
 });
 
-const ActorList = ({ classes, getActors, actors, loading }) => {
-  useEffect(() => {
-    getActors();
-  }, [getActors]);
-
+const ActorList = ({ classes, actors, loading }) => {
   return (
     <Container maxWidth='lg'>
       {loading ? (
         <CircularProgress size={150} className={classes.spinnerDiv} />
       ) : (
         <Grid container spacing={3}>
-          {actors ? (
+          {actors.length > 0 ? (
             actors.map((actor) => {
               return <ActorItem key={actor.url} actor={actor} />;
             })
@@ -41,12 +34,7 @@ const ActorList = ({ classes, getActors, actors, loading }) => {
 
 ActorList.propTypes = {
   classes: PropTypes.object.isRequired,
-  getActors: PropTypes.func.isRequired
+  actors: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  actors: state.actor.actors,
-  loading: state.actor.loading
-});
-
-export default connect(mapStateToProps, { getActors })(withStyles(styles)(ActorList));
+export default withStyles(styles)(ActorList);
