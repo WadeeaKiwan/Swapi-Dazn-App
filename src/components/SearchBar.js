@@ -38,6 +38,8 @@ const SearchBar = ({ classes, actors, loading }) => {
         )
       );
       console.log(filteredActors);
+    } else if (searchField.length === 1) {
+      setFilteredActors(actors);
     }
   };
 

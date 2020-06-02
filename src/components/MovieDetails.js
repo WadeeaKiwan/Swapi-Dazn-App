@@ -7,9 +7,9 @@ import { Button, Container, Typography, CircularProgress, CardMedia } from "@mat
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import { connect } from "react-redux";
-import { getMovie } from "../../redux/actions/actorActions";
+import { getMovie } from "../redux/actions/actorActions";
 
-const movieImage = require("../../assets/A-New-Hope.jpg");
+const movieImage = require("../assets/A-New-Hope.jpg");
 
 const styles = (theme) => ({
   ...theme.styles,

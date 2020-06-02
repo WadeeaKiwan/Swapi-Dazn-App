@@ -1,15 +1,23 @@
 import { GET_ACTORS, GET_ACTOR_MOVIES, GET_MOVIE, LOADING } from "../types";
 import axios from "axios";
 
+import getPage from "../../util/getPage";
+
 export const getActors = () => async (dispatch) => {
   try {
     dispatch({ type: LOADING });
 
-    const res = await axios.get("http://swapi.dev/api/people/");
+    let data = { results: [] };
+    let page = 1;
+    while (page < 10) {
+      let newResults = await getPage(page);
+      page++;
+      data.results = [...data.results, ...newResults.results];
+    }
 
     dispatch({
       type: GET_ACTORS,
-      payload: res.data.results
+      payload: data.results
     });
   } catch (error) {
     console.log(error);

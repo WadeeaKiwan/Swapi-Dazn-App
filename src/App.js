@@ -7,7 +7,7 @@ import themeFile from "./util/theme";
 
 import SearchBar from "./components/SearchBar";
 // import ActorList from "./components/actors/ActorList";
-import MovieDetails from "./components/movies/MovieDetails";
+import MovieDetails from "./components/MovieDetails";
 
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -19,6 +19,7 @@ const App = () => {
   useEffect(() => {
     store.dispatch(getActors());
   }, []);
+
   return (
     <MuiThemeProvider theme={theme}>
       <Provider store={store}>
