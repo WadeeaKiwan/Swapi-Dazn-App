@@ -40,9 +40,9 @@ const styles = (theme) => ({
 });
 
 const ActorItem = ({ classes, actor, getActorMovies, movies }) => {
-  useEffect(() => {
-    getActorMovies(actor.url);
-  }, [getActorMovies, actor.url]);
+  // useEffect(() => {
+  //   getActorMovies(actor.url);
+  // }, [getActorMovies, actor.url]);
 
   return (
     <Grid item key={actor.url} xs={12} md={6}>
