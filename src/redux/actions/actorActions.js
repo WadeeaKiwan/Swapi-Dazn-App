@@ -26,10 +26,9 @@ export const getActors = () => async (dispatch) => {
 
 export const getActorMovies = (actorUrl) => async (dispatch) => {
   try {
-    const res = await axios.get("http://swapi.dev/api/films/");
+    const res = await axios.get("/films/");
 
     let movies = res.data.results.filter((movie) => movie.characters.includes(actorUrl));
-    // console.log(movies);
 
     dispatch({
       type: GET_ACTOR_MOVIES,
