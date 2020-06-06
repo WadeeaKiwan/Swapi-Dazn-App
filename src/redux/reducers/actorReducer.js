@@ -1,8 +1,7 @@
-import { GET_ACTORS, GET_ACTOR_MOVIES, GET_MOVIE, LOADING } from "../types";
+import { GET_ACTORS, GET_MOVIE, LOADING } from "../types";
 
 const initialState = {
   actors: [],
-  movies: [],
   movie: {},
   loading: false
 };
@@ -15,12 +14,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         actors: payload,
-        loading: false
-      };
-    case GET_ACTOR_MOVIES:
-      return {
-        ...state,
-        movies: payload,
         loading: false
       };
     case GET_MOVIE:

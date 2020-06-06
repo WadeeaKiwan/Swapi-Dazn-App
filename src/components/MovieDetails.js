@@ -8,8 +8,6 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { connect } from "react-redux";
 import { getMovie } from "../redux/actions/actorActions";
 
-const movieImage = require("../assets/A-New-Hope.jpg");
-
 const styles = (theme) => ({
   ...theme.styles,
   movieContainer: {
@@ -56,7 +54,7 @@ const MovieDetails = ({ classes, getMovie, movie, loading }) => {
               className={classes.movieImage}
               component='img'
               alt='Movie Image'
-              image={movieImage}
+              image={movie.photoUrl}
             />
             <div className={classes.movieDetails}>
               <Typography variant='h4' gutterBottom>

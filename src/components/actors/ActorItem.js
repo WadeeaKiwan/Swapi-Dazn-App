@@ -1,14 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Card, CardMedia, CardContent, Typography } from "@material-ui/core";
-
-import { connect } from "react-redux";
-import { getActorMovies } from "../../redux/actions/actorActions";
-
-const profileAvatar = require("../../assets/profile-avatar.png");
 
 const styles = (theme) => ({
   ...theme.styles,
@@ -39,11 +34,7 @@ const styles = (theme) => ({
   }
 });
 
-const ActorItem = ({ classes, actor, getActorMovies, movies }) => {
-  // useEffect(() => {
-  //   getActorMovies(actor.url);
-  // }, [getActorMovies, actor.url]);
-
+const ActorItem = ({ classes, actor }) => {
   return (
     <Grid item key={actor.url} xs={12} md={6}>
       <Card className={classes.actorCard}>
@@ -51,7 +42,7 @@ const ActorItem = ({ classes, actor, getActorMovies, movies }) => {
           className={classes.actorImage}
           component='img'
           alt='Profile Avatar'
-          image={profileAvatar}
+          image={"/assets/profile-avatar.png"}
         />
         <CardContent className={classes.cardContent}>
           <div className={classes.actorDetails}>
@@ -62,9 +53,9 @@ const ActorItem = ({ classes, actor, getActorMovies, movies }) => {
           </div>
           <div className={classes.actorDetails}>
             <Typography variant='h5'>Movies</Typography>
-            {movies.map((movie) => (
-              <Link key={movie.episode_id} to={`/movie/${movie.episode_id}`}>
-                {movie.title}
+            {actor.films.map((film) => (
+              <Link key={film.episode_id} to={`/movie/${film.url.match(/[1-6]/g)}`}>
+                {film.title}
               </Link>
             ))}
           </div>
@@ -76,12 +67,7 @@ const ActorItem = ({ classes, actor, getActorMovies, movies }) => {
 
 ActorItem.propTypes = {
   classes: PropTypes.object.isRequired,
-  actor: PropTypes.object.isRequired,
-  movies: PropTypes.array.isRequired
+  actor: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  movies: state.actor.movies
-});
-
-export default connect(mapStateToProps, { getActorMovies })(withStyles(styles)(ActorItem));
+export default withStyles(styles)(ActorItem);

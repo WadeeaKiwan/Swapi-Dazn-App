@@ -30,7 +30,7 @@ const SearchBar = ({ classes, actors, loading }) => {
 
   const searchChangeHandler = (e) => {
     setSearchField(([e.target.name] = e.target.value));
-    console.log(searchField);
+    console.log(...searchField);
     if (searchField.length >= 2) {
       setFilteredActors(
         filteredActors.filter(
