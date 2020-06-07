@@ -1,4 +1,4 @@
-import { GET_ACTORS, GET_MOVIE, LOADING } from "../types";
+import { GET_ACTORS, GET_MOVIE, LOADING, SEARCH_ACTORS } from "../types";
 import axios from "axios";
 
 import getPage from "../../util/getPage";
@@ -77,6 +77,20 @@ export const getMovie = (movieId) => async (dispatch) => {
     dispatch({
       type: GET_MOVIE,
       payload: movieRes
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Search actors by name
+export const searchActors = (movieId) => async (dispatch) => {
+  try {
+    dispatch({ type: LOADING });
+
+    dispatch({
+      type: SEARCH_ACTORS,
+      payload: "SEARCH"
     });
   } catch (error) {
     console.log(error);
