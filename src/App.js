@@ -16,19 +16,19 @@ import { getActors } from "./redux/actions/actorActions";
 const theme = createMuiTheme(themeFile);
 
 const App = () => {
-  // const [actors, setActors] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [actors, setActors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     store.dispatch(getActors());
-    // store.subscribe(() => {
-    //   if (store.getState().actor.filteredActors) {
-    //     setActors(store.getState().actor.filteredActors);
-    //   } else {
-    //     setActors(store.getState().actor.actors);
-    //   }
-    //   setLoading(store.getState().actor.loading);
-    // });
+    store.subscribe(() => {
+      if (!store.getState().actor.searchText) {
+        setActors(store.getState().actor.actors);
+      } else {
+        setActors(store.getState().actor.filteredActors);
+      }
+      setLoading(store.getState().actor.loading);
+    });
   }, []);
 
   return (
@@ -38,7 +38,7 @@ const App = () => {
           <Switch>
             <Route exact path='/'>
               <SearchBar />
-              {/* <ActorList actors={actors} loading={loading} /> */}
+              <ActorList actors={actors} loading={loading} />
             </Route>
             <Route exact path='/movie/:movieId'>
               <MovieDetails />

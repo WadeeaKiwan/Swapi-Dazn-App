@@ -84,11 +84,11 @@ export const getMovie = (movieId) => async (dispatch) => {
 };
 
 // Search actors by name
-export const searchActors = (filteredActors) => async (dispatch) => {
+export const searchActors = (searchText) => async (dispatch) => {
   try {
     dispatch({
       type: SEARCH_ACTORS,
-      payload: filteredActors
+      payload: searchText
     });
   } catch (error) {
     console.log(error);

@@ -6,11 +6,8 @@ import { Container, Typography, TextField, Button, IconButton } from "@material-
 import SearchIcon from "@material-ui/icons/Search";
 import ClearIcon from "@material-ui/icons/Clear";
 
-import ActorList from "./actors/ActorList";
 import { connect } from "react-redux";
-// import { searchActors } from "../redux/actions/actorActions";
-// import { SEARCH_ACTORS } from "../redux/types";
-// import store from "../redux/store";
+import { searchActors } from "../redux/actions/actorActions";
 
 const styles = (theme) => ({
   ...theme.styles,
@@ -24,31 +21,19 @@ const styles = (theme) => ({
   }
 });
 
-const SearchBar = ({ classes, actors, loading }) => {
-  const [searchField, setSearchField] = useState("");
-  const [filteredActors, setFilteredActors] = useState([]);
+const SearchBar = ({ classes, searchActors }) => {
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
-    if (searchField.length >= 2) {
-      setFilteredActors(
-        actors.filter((actor) => actor.name.toLowerCase().indexOf(searchField.toLowerCase()) !== -1)
-      );
-    } else {
-      setFilteredActors(actors);
-    }
-    // store.dispatch({ type: SEARCH_ACTORS, payload: filteredActors });
-  }, [actors, setFilteredActors, searchField]);
+    searchActors(searchText);
+  }, [searchActors, searchText]);
 
   const searchChangeHandler = (e) => {
-    setSearchField(e.target.value);
+    setSearchText(e.target.value);
   };
 
   const searchButtonHandler = (e) => {
-    setFilteredActors(
-      filteredActors.filter(
-        (actor) => actor.name.toLowerCase().indexOf(searchField.toLowerCase()) !== -1
-      )
-    );
+    searchActors(searchText);
   };
 
   return (
@@ -57,20 +42,19 @@ const SearchBar = ({ classes, actors, loading }) => {
       <div className={classes.searchContainer}>
         <TextField
           id='search'
-          name='searchField'
+          name='searchText'
           placeholder='Search for movie actors'
           fullWidth
           margin='normal'
           variant='outlined'
-          className={classes.searchField}
-          value={searchField}
+          className={classes.searchText}
+          value={searchText}
           onChange={searchChangeHandler}
           InputProps={{
             endAdornment: (
               <IconButton
                 onClick={() => {
-                  setSearchField("");
-                  setFilteredActors(actors);
+                  setSearchText("");
                 }}
               >
                 <ClearIcon />
@@ -82,26 +66,19 @@ const SearchBar = ({ classes, actors, loading }) => {
           variant='contained'
           color='secondary'
           className={classes.searchButton}
-          disabled={searchField.length < 2}
+          disabled={searchText.length < 2}
           onClick={searchButtonHandler}
         >
           <SearchIcon />
         </Button>
       </div>
-      <ActorList actors={filteredActors} loading={loading} />
     </Container>
   );
 };
 
 SearchBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  actors: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
+  searchActors: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  actors: state.actor.actors,
-  loading: state.actor.loading
-});
-
-export default connect(mapStateToProps, {})(withStyles(styles)(SearchBar));
+export default connect(null, { searchActors })(withStyles(styles)(SearchBar));

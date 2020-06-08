@@ -4,7 +4,7 @@ const initialState = {
   actors: [],
   filteredActors: [],
   movie: {},
-  isSearching: false,
+  searchText: "",
   loading: false
 };
 
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         actors: payload,
-        isSearching: false,
+        searchText: "",
         loading: false
       };
     case GET_MOVIE:
@@ -33,8 +33,10 @@ export default (state = initialState, action) => {
     case SEARCH_ACTORS:
       return {
         ...state,
-        isSearching: true,
-        filteredActors: payload,
+        searchText: payload,
+        filteredActors: state.actors.filter(
+          (actor) => actor.name.toLowerCase().indexOf(payload.toLowerCase()) !== -1
+        ),
         loading: false
       };
     default:
