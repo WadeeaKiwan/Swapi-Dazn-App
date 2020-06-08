@@ -16,15 +16,19 @@ import { getActors } from "./redux/actions/actorActions";
 const theme = createMuiTheme(themeFile);
 
 const App = () => {
-  const [actors, setActors] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [actors, setActors] = useState([]);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     store.dispatch(getActors());
-    store.subscribe(() => {
-      setActors(store.getState().actor.actors);
-      setLoading(store.getState().actor.loading);
-    });
+    // store.subscribe(() => {
+    //   if (store.getState().actor.filteredActors) {
+    //     setActors(store.getState().actor.filteredActors);
+    //   } else {
+    //     setActors(store.getState().actor.actors);
+    //   }
+    //   setLoading(store.getState().actor.loading);
+    // });
   }, []);
 
   return (

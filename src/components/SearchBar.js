@@ -8,6 +8,9 @@ import ClearIcon from "@material-ui/icons/Clear";
 
 import ActorList from "./actors/ActorList";
 import { connect } from "react-redux";
+// import { searchActors } from "../redux/actions/actorActions";
+// import { SEARCH_ACTORS } from "../redux/types";
+// import store from "../redux/store";
 
 const styles = (theme) => ({
   ...theme.styles,
@@ -23,28 +26,24 @@ const styles = (theme) => ({
 
 const SearchBar = ({ classes, actors, loading }) => {
   const [searchField, setSearchField] = useState("");
-  const [filteredActors, setFilteredActors] = useState(actors);
+  const [filteredActors, setFilteredActors] = useState([]);
 
   useEffect(() => {
-    setFilteredActors(actors);
-  }, [setFilteredActors, actors]);
-
-  const searchChangeHandler = (e) => {
-    setSearchField(([e.target.name] = e.target.value));
-    console.log(searchField);
     if (searchField.length >= 2) {
       setFilteredActors(
-        filteredActors.filter(
-          (actor) => actor.name.toLowerCase().indexOf(searchField.toLowerCase()) !== -1
-        )
+        actors.filter((actor) => actor.name.toLowerCase().indexOf(searchField.toLowerCase()) !== -1)
       );
-      console.log(filteredActors);
-    } else if (searchField.length === 0) {
+    } else {
       setFilteredActors(actors);
     }
+    // store.dispatch({ type: SEARCH_ACTORS, payload: filteredActors });
+  }, [actors, setFilteredActors, searchField]);
+
+  const searchChangeHandler = (e) => {
+    setSearchField(e.target.value);
   };
 
-  const handleSearch = (e) => {
+  const searchButtonHandler = (e) => {
     setFilteredActors(
       filteredActors.filter(
         (actor) => actor.name.toLowerCase().indexOf(searchField.toLowerCase()) !== -1
@@ -84,7 +83,7 @@ const SearchBar = ({ classes, actors, loading }) => {
           color='secondary'
           className={classes.searchButton}
           disabled={searchField.length < 2}
-          onClick={handleSearch}
+          onClick={searchButtonHandler}
         >
           <SearchIcon />
         </Button>
@@ -96,7 +95,8 @@ const SearchBar = ({ classes, actors, loading }) => {
 
 SearchBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  actors: PropTypes.array.isRequired
+  actors: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
