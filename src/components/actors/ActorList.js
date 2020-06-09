@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Container, Grid, CircularProgress, Typography } from "@material-ui/core";
 
 import ActorItem from "./ActorItem";
+import PaginationBar from "../PaginationBar";
 
 const styles = (theme) => ({
   ...theme.styles,
@@ -19,17 +20,22 @@ const ActorList = ({ classes, actors, loading }) => {
       {loading ? (
         <CircularProgress size={150} className={classes.spinnerDiv} />
       ) : (
-        <Grid container spacing={5}>
+        <React.Fragment>
           {actors ? (
-            actors.map((actor) => {
-              return <ActorItem key={actor.url} actor={actor} />;
-            })
+            <React.Fragment>
+              <Grid container spacing={5}>
+                {actors.map((actor) => {
+                  return <ActorItem key={actor.url} actor={actor} />;
+                })}
+              </Grid>
+              <PaginationBar />
+            </React.Fragment>
           ) : (
             <div className={classes.spinnerDiv}>
               <Typography variant='h4'>No actors found.</Typography>
             </div>
           )}
-        </Grid>
+        </React.Fragment>
       )}
     </Container>
   );
