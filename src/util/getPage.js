@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getPage = async (page) => {
   try {
-    let url = `http://swapi.dev/api/people/?page=${page}`;
+    let url = `https://swapi.dev/api/people/?page=${page}`;
     const res = await axios.get(url);
     return res.data.results;
   } catch (err) {
