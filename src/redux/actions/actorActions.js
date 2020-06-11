@@ -16,20 +16,20 @@ export const getActors = () => async (dispatch) => {
     dispatch({ type: LOADING });
 
     // Loop over the `next` url to get all actors after they was limited to 10 per request
-    let data = { results: [] };
+    let actors = [];
     let page = 1;
     while (page < 10) {
       let newResults = await getPage(page);
       page++;
-      data.results = [...data.results, ...newResults.results];
+      actors = [...actors, ...newResults];
     }
 
     // Fetch all films
-    let movieRes = await (await fetch("/films/")).json();
+    let movieRes = await (await fetch("http://swapi.dev/api/films/")).json();
     movieRes = movieRes.results;
 
     // Add the photo property to every film to be attached with its film photo
-    let movieCompleteList = movieRes.reduce((newMovieArr, curMovie) => {
+    const movieCompleteList = movieRes.reduce((newMovieArr, curMovie) => {
       newMovieArr = [
         ...newMovieArr,
         { ...curMovie, ...selectedMovie(moviePhotoList, curMovie.episode_id) }
@@ -37,9 +37,8 @@ export const getActors = () => async (dispatch) => {
       return newMovieArr;
     }, []);
 
-    let allActorsWithMovies = data.results;
     // Replace every film url with the actual film array containing the film photo url
-    allActorsWithMovies = allActorsWithMovies.reduce((newActorsArray, curActor) => {
+    const allActorsWithMovies = actors.reduce((newActorsArray, curActor) => {
       newActorsArray = [
         ...newActorsArray,
         {
