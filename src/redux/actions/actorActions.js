@@ -67,7 +67,7 @@ export const getMovie = (movieId) => async (dispatch) => {
   try {
     dispatch({ type: LOADING });
 
-    const res = await axios.get(`https://swapi.dev/api/films/${movieId}`);
+    const res = await axios.get(`http://swapi.dev/api/films/${movieId}`);
     let movieRes = res.data;
 
     // Add the photo property to the film to be attached with its film photo
