@@ -13,9 +13,24 @@ const styles = (theme) => ({
   movieContainer: {
     marginTop: "3rem"
   },
+  spinnerDiv: {
+    position: "absolute",
+    top: "45%",
+    left: "30%",
+    [theme.breakpoints.up("sm")]: {
+      left: "35%"
+    },
+    [theme.breakpoints.up("md")]: {
+      left: "40%"
+    }
+  },
   movieDetailsContainer: {
     marginTop: "3rem",
-    display: "flex"
+    display: "flex",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      alignItems: "center"
+    }
   },
   movieDetails: {
     padding: "2rem",
@@ -27,8 +42,7 @@ const styles = (theme) => ({
     }
   },
   movieImage: {
-    width: 350,
-    height: 450
+    maxWidth: 400
   }
 });
 
@@ -47,7 +61,7 @@ const MovieDetails = ({ classes, getMovie, movie, loading }) => {
       ) : (
         <React.Fragment>
           <Button onClick={() => history.push("/")}>
-            <ArrowBackIcon color='primary' /> Back to actors search
+            <ArrowBackIcon color='primary' /> Back to actors
           </Button>
           <Container className={classes.movieDetailsContainer}>
             <CardMedia

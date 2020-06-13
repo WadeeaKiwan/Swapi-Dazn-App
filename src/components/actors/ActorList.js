@@ -11,6 +11,17 @@ const styles = (theme) => ({
   ...theme.styles,
   actorListContainer: {
     marginTop: "1rem"
+  },
+  spinnerDiv: {
+    position: "absolute",
+    top: "45%",
+    left: "30%",
+    [theme.breakpoints.up("sm")]: {
+      left: "35%"
+    },
+    [theme.breakpoints.up("md")]: {
+      left: "40%"
+    }
   }
 });
 

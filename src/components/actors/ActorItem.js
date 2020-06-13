@@ -7,12 +7,22 @@ import { Grid, Card, CardMedia, CardContent, Typography } from "@material-ui/cor
 
 const styles = (theme) => ({
   ...theme.styles,
+  actorContainer: {
+    display: "grid"
+  },
   actorCard: {
-    display: "flex"
+    display: "flex",
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+      alignItems: "center"
+    },
+    [theme.breakpoints.only("md")]: {
+      flexDirection: "column",
+      alignItems: "center"
+    }
   },
   actorImage: {
-    width: 200,
-    minHeight: 250
+    width: 200
   },
   cardContent: {
     display: "flex"
@@ -29,14 +39,15 @@ const styles = (theme) => ({
     },
     "& a": {
       textDecoration: "none",
-      marginBottom: "0.5rem"
+      marginBottom: "0.5rem",
+      color: theme.palette.primary.main
     }
   }
 });
 
 const ActorItem = ({ classes, actor }) => {
   return (
-    <Grid item key={actor.url} xs={12} md={6}>
+    <Grid item xs={12} md={6} className={classes.actorContainer}>
       <Card className={classes.actorCard}>
         <CardMedia
           className={classes.actorImage}

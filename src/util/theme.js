@@ -13,11 +13,5 @@ export default {
       contrastText: "#fff"
     }
   },
-  styles: {
-    spinnerDiv: {
-      position: "absolute",
-      top: "40%",
-      left: "40%"
-    }
-  }
+  styles: {}
 };
