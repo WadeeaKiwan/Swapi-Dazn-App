@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -15,20 +15,29 @@ const styles = (theme) => ({
 });
 
 const ActorList = ({ classes, actors, loading }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage] = useState(8);
+
+  const indexOfLastActor = currentPage * perPage;
+  const indexOfFirstActor = indexOfLastActor - perPage;
+  const currentActors = actors.slice(indexOfFirstActor, indexOfLastActor);
+
+  const paginate = (currentPage) => setCurrentPage(currentPage);
+
   return (
     <Container maxWidth='lg' className={classes.actorListContainer}>
       {loading ? (
         <CircularProgress size={150} className={classes.spinnerDiv} />
       ) : (
         <React.Fragment>
-          {actors ? (
+          {actors.length ? (
             <React.Fragment>
               <Grid container spacing={5}>
-                {actors.map((actor) => {
+                {currentActors.map((actor) => {
                   return <ActorItem key={actor.url} actor={actor} />;
                 })}
               </Grid>
-              <PaginationBar />
+              <PaginationBar perPage={perPage} totalActors={actors.length} paginate={paginate} />
             </React.Fragment>
           ) : (
             <div className={classes.spinnerDiv}>
