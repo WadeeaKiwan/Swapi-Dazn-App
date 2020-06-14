@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { withStyles } from "@material-ui/core/styles";
-import { Grid, Card, CardMedia, CardContent, Typography } from "@material-ui/core";
+import { Grid, Card, CardMedia, CardContent, Typography, Slide } from "@material-ui/core";
 
 const styles = (theme) => ({
   ...theme.styles,
@@ -48,30 +48,32 @@ const styles = (theme) => ({
 const ActorItem = ({ classes, actor }) => {
   return (
     <Grid item xs={12} md={6} className={classes.actorContainer}>
-      <Card className={classes.actorCard}>
-        <CardMedia
-          className={classes.actorImage}
-          component='img'
-          alt='Profile Avatar'
-          image={"/assets/profile-avatar.png"}
-        />
-        <CardContent className={classes.cardContent}>
-          <div className={classes.actorDetails}>
-            <Typography variant='h5'>{actor.name}</Typography>
-            <Typography>Born in {actor.birth_year}</Typography>
-            <Typography>height {actor.height}</Typography>
-            <Typography>{actor.gender}</Typography>
-          </div>
-          <div className={classes.actorDetails}>
-            <Typography variant='h5'>Movies</Typography>
-            {actor.films.map((film) => (
-              <Link key={film.episode_id} to={`/movie/${film.url.match(/[1-6]/g)}`}>
-                {film.title}
-              </Link>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+      <Slide in direction='up' timeout={1000}>
+        <Card className={classes.actorCard}>
+          <CardMedia
+            className={classes.actorImage}
+            component='img'
+            alt='Profile Avatar'
+            image={"/assets/profile-avatar.png"}
+          />
+          <CardContent className={classes.cardContent}>
+            <div className={classes.actorDetails}>
+              <Typography variant='h5'>{actor.name}</Typography>
+              <Typography>Born in {actor.birth_year}</Typography>
+              <Typography>height {actor.height}</Typography>
+              <Typography>{actor.gender}</Typography>
+            </div>
+            <div className={classes.actorDetails}>
+              <Typography variant='h5'>Movies</Typography>
+              {actor.films.map((film) => (
+                <Link key={film.episode_id} to={`/movie/${film.url.match(/[1-6]/g)}`}>
+                  {film.title}
+                </Link>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </Slide>
     </Grid>
   );
 };

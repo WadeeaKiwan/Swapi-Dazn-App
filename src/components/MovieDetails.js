@@ -2,7 +2,14 @@ import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { Button, Container, Typography, CircularProgress, CardMedia } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  Typography,
+  CircularProgress,
+  CardMedia,
+  Slide
+} from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import { connect } from "react-redux";
@@ -55,42 +62,44 @@ const MovieDetails = ({ classes, getMovie, movie, loading }) => {
   }, [getMovie, movieId]);
 
   return (
-    <Container maxWidth='lg' className={classes.movieContainer}>
-      {loading ? (
-        <CircularProgress size={150} className={classes.spinnerDiv} />
-      ) : (
-        <React.Fragment>
-          <Button onClick={() => history.push("/")}>
-            <ArrowBackIcon color='primary' /> Back to actors
-          </Button>
-          <Container className={classes.movieDetailsContainer}>
-            <CardMedia
-              className={classes.movieImage}
-              component='img'
-              alt='Movie Image'
-              image={movie.photoUrl}
-            />
-            <div className={classes.movieDetails}>
-              <Typography variant='h4' gutterBottom>
-                {movie.title}
-              </Typography>
-              <Typography gutterBottom>
-                <strong>Director:</strong> {movie.director}
-              </Typography>
-              <Typography gutterBottom>
-                <strong>Producer:</strong> {movie.producer}
-              </Typography>
-              <Typography color='textSecondary' gutterBottom>
-                <strong>Release Date:</strong> {movie.release_date}
-              </Typography>
-              <Typography gutterBottom>
-                <strong>Opening Crawl:</strong> {movie.opening_crawl}
-              </Typography>
-            </div>
-          </Container>
-        </React.Fragment>
-      )}
-    </Container>
+    <Slide in direction='left' timeout={800}>
+      <Container maxWidth='lg' className={classes.movieContainer}>
+        {loading ? (
+          <CircularProgress size={150} className={classes.spinnerDiv} />
+        ) : (
+          <React.Fragment>
+            <Button onClick={() => history.push("/")}>
+              <ArrowBackIcon color='primary' /> Back to actors
+            </Button>
+            <Container className={classes.movieDetailsContainer}>
+              <CardMedia
+                className={classes.movieImage}
+                component='img'
+                alt='Movie Image'
+                image={movie.photoUrl}
+              />
+              <div className={classes.movieDetails}>
+                <Typography variant='h4' gutterBottom>
+                  {movie.title}
+                </Typography>
+                <Typography gutterBottom>
+                  <strong>Director:</strong> {movie.director}
+                </Typography>
+                <Typography gutterBottom>
+                  <strong>Producer:</strong> {movie.producer}
+                </Typography>
+                <Typography color='textSecondary' gutterBottom>
+                  <strong>Release Date:</strong> {movie.release_date}
+                </Typography>
+                <Typography gutterBottom>
+                  <strong>Opening Crawl:</strong> {movie.opening_crawl}
+                </Typography>
+              </div>
+            </Container>
+          </React.Fragment>
+        )}
+      </Container>
+    </Slide>
   );
 };
 
