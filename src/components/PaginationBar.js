@@ -30,7 +30,10 @@ const PaginationBar = ({ classes, perPage, totalActors, paginate }) => {
 };
 
 PaginationBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  perPage: PropTypes.number.isRequired,
+  totalActors: PropTypes.number.isRequired,
+  paginate: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(PaginationBar);

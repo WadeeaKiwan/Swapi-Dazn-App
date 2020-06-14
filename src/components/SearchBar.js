@@ -11,6 +11,9 @@ import { searchActors } from "../redux/actions/actorActions";
 
 const styles = (theme) => ({
   ...theme.styles,
+  header: {
+    marginTop: "1rem"
+  },
   searchContainer: {
     display: "flex"
   },
@@ -38,7 +41,9 @@ const SearchBar = ({ classes, searchActors }) => {
 
   return (
     <Container maxWidth='lg'>
-      <Typography variant='h3'>STAR WARS</Typography>
+      <Typography variant='h3' className={classes.header}>
+        STAR WARS
+      </Typography>
       <div className={classes.searchContainer}>
         <TextField
           id='search'
